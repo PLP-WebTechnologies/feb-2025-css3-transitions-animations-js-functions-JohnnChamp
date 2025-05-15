@@ -2,6 +2,7 @@ body {
   font-family: Arial, sans-serif;
   text-align: center;
   padding-top: 50px;
+  transition: background-color 0.5s, color 0.5s;
 }
 
 button {
@@ -9,7 +10,7 @@ button {
   margin: 10px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s;
 }
 
 button:hover {
@@ -17,7 +18,7 @@ button:hover {
   color: white;
 }
 
-/* Animation keyframes */
+/* Bounce animation */
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
@@ -29,4 +30,19 @@ button:hover {
 
 .animate {
   animation: bounce 0.5s;
+}
+
+/* Image animation on hover */
+#animatedImage {
+  margin-top: 30px;
+  transition: transform 0.4s;
+}
+#animatedImage:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Dark theme */
+body.dark {
+  background-color: #121212;
+  color: white;
 }

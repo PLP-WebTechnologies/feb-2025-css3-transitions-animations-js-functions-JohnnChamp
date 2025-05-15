@@ -1,26 +1,45 @@
-// Trigger animation
 const animateBtn = document.getElementById('animateBtn');
+const toggleThemeBtn = document.getElementById('toggleThemeBtn');
+const saveBtn = document.getElementById('savePreferenceBtn');
+const message = document.getElementById('message');
+const body = document.body;
+
+// Add bounce animation
 animateBtn.addEventListener('click', () => {
   animateBtn.classList.add('animate');
-
-  // Remove class after animation ends so it can re-trigger
   animateBtn.addEventListener('animationend', () => {
     animateBtn.classList.remove('animate');
   }, { once: true });
 });
 
-// Save user preference (e.g. theme)
-document.getElementById('savePreferenceBtn').addEventListener('click', () => {
-  localStorage.setItem('theme', 'dark');
-  alert('Theme preference saved!');
+// Toggle theme (light <-> dark)
+toggleThemeBtn.addEventListener('click', () => {
+  body.classList.toggle('dark');
+  updateGreeting();
 });
 
-// Retrieve and apply preference
-window.addEventListener('DOMContentLoaded', () => {
-  const theme = localStorage.getItem('theme');
-  if (theme === 'dark') {
-    document.body.style.backgroundColor = '#222';
-    document.body.style.color = '#fff';
-    document.getElementById('greeting').textContent = 'Welcome back (Dark Theme)!';
-  }
+// Save theme preference to localStorage
+saveBtn.addEventListener('click', () => {
+  const isDark = body.classList.contains('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  message.textContent = 'Theme preference saved!';
+  setTimeout(() => message.textContent = '', 3000);
 });
+
+// Load theme preference from localStorage on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    body.classList.add('dark');
+  }
+  updateGreeting();
+});
+
+function updateGreeting() {
+  const greeting = document.getElementById('greeting');
+  if (body.classList.contains('dark')) {
+    greeting.textContent = 'Welcome back (Dark Theme)!';
+  } else {
+    greeting.textContent = 'Welcome!';
+  }
+}
