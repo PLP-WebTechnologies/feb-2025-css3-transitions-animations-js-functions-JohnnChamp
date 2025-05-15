@@ -6,10 +6,9 @@ const body = document.body;
 
 // Add bounce animation
 animateBtn.addEventListener('click', () => {
+  animateBtn.classList.remove('animate'); // Reset if class is already there
+  void animateBtn.offsetWidth; // Trigger reflow
   animateBtn.classList.add('animate');
-  animateBtn.addEventListener('animationend', () => {
-    animateBtn.classList.remove('animate');
-  }, { once: true });
 });
 
 // Toggle theme (light <-> dark)
